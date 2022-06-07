@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{CC535877-2ACD-484A-800C-8D950855C412}</ProjectGuid>
+    <RootNamespace>Mutagen</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>_DEBUG;UNICODE;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\src;.\$(Platform);$(QTDIR)\include;$(QTDIR)\include\QtWidgets</AdditionalIncludeDirectories>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeaderFile>false</PrecompiledHeaderFile>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(Platform)\$(Configuration)\$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>qtmain.lib;Qt5Cored.lib;Qt5Widgetsd.lib;Qt5Guid.lib;Qt5OpenGLd.lib;opengl32.lib;shell32.lib</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PreprocessorDefinitions>NDEBUG;UNICODE;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\src;.\$(Platform);$(QTDIR)\include;$(QTDIR)\include\QtWidgets</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(Platform)\$(Configuration)\$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Widgets.lib;Qt5Gui.lib;Qt5OpenGL.lib;opengl32.lib;shell32.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\CommonLib\Exception.cpp" />
+    <ClCompile Include="src\CommonLib\Logger.cpp" />
+    <ClCompile Include="src\CommonLib\PeriodicTable.cpp" />
+    <ClCompile Include="src\FileIOLib\FileIOBase.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\mainWindow.cpp" />
+    <ClCompile Include="src\mapping.cpp" />
+    <ClCompile Include="src\molecular.cpp" />
+    <ClCompile Include="src\scene3D.cpp" />
+    <ClCompile Include="$(Platform)\moc_mainWindow.cpp" />
+    <ClCompile Include="$(Platform)\moc_scene3D.cpp" />
+    <ClCompile Include="$(Platform)\moc_tutorialDialog.cpp" />
+    <ClCompile Include="$(Platform)\qrc_icons.cpp" />
+    <ClCompile Include="$(Platform)\qrc_tutorial.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\mainWindow.h">
+      <Message>Moc%27ing %(Identity)...</Message>
+      <Outputs>.\$(Platform)\moc_%(Filename).cpp</Outputs>
+      <Command>$(QTDIR)\bin\moc.exe %(Identity) -o .\$(Platform)\moc_%(Filename).cpp</Command>
+    </CustomBuild>
+    <CustomBuild Include="src\scene3D.h">
+      <Message>Moc%27ing %(Identity)...</Message>
+      <Outputs>.\$(Platform)\moc_%(Filename).cpp</Outputs>
+      <Command>$(QTDIR)\bin\moc.exe %(Identity) -o .\$(Platform)\moc_%(Filename).cpp</Command>
+    </CustomBuild>
+    <CustomBuild Include="src\tutorialDialog.h">
+      <Message>Moc%27ing %(Identity)...</Message>
+      <Outputs>.\$(Platform)\moc_%(Filename).cpp</Outputs>
+      <Command>$(QTDIR)\bin\moc.exe %(Identity) -o .\$(Platform)\moc_%(Filename).cpp</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\icons.qrc">
+      <Message>Rcc%27ing %(Identity)...</Message>
+      <Outputs>.\$(Platform)\qrc_%(Filename).cpp</Outputs>
+      <Command>$(QTDIR)\bin\rcc.exe -name %(Filename) -o .\$(Platform)\qrc_%(Filename).cpp %(FullPath)</Command>
+    </CustomBuild>
+    <CustomBuild Include="src\tutorial.qrc">
+      <Message>Rcc%27ing %(Identity)...</Message>
+      <Outputs>.\$(Platform)\qrc_%(Filename).cpp</Outputs>
+      <Command>$(QTDIR)\bin\rcc.exe -name %(Filename) -o .\$(Platform)\qrc_%(Filename).cpp %(FullPath)</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="src\tutorialDialog.ui">
+      <Message>Uic%27ing %(Identity)...</Message>
+      <Outputs>.\$(Platform)\ui_%(Filename).h</Outputs>
+      <Command>$(QTDIR)\bin\uic.exe -o .\$(Platform)\ui_%(Filename).h %(FullPath)</Command>
+    </CustomBuild>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
