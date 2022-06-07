@@ -44,7 +44,7 @@ void Scene3D::paintGL() {
   applyModelview();
   drawScene();
   if (!mutationMap.mappingList.isEmpty()) drawMapLinks();
-  if (showAxes) draw—oordinateAxes();
+  if (showAxes) drawCoordinateAxes();
 }
 
 void Scene3D::wheelEvent(QWheelEvent* event) {
@@ -352,7 +352,7 @@ void Scene3D::drawScene() {
   if (molecularSystem.representation == molecularSystem.VDW) drawVDW();
 }
 
-void Scene3D::draw—oordinateAxes() {
+void Scene3D::drawCoordinateAxes() {
   // Render x, y, z axes as an overlay on the widget
   QFont labelFont("Courier", 10);
   glDisable(GL_LIGHTING);

@@ -2,6 +2,7 @@
 
 #include "CommonLib/Exception.h"
 #include "CommonLib/MolDefines.h" // definition of IndexType, BondIndexType
+#include "CommonLib/PeriodicTable.h"
 
 #include <cstring> //Definition of memset
 

@@ -6,6 +6,7 @@
 #include <QtCore/QString>
 #include <QtGui/QVector3D>
 #include "FileIOLib/FileIOHIN.h"
+#include <cfloat> // for FLT_MAX
 
 typedef FileIO::CIOAtom Atom;
 

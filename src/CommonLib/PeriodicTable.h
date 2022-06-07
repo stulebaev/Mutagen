@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Typedefs.h"
+#include <istream>
+#include <ostream>
 
 namespace Common
 { //namespace Common

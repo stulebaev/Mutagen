@@ -90,14 +90,14 @@ class LogHelper
 {
 	ELoggerLevels m_eLevel;
 	Common::ComString m_sModuleName;
-	bool m_bForseConsole;
+	//bool m_bForseConsole;
 	std::chrono::high_resolution_clock::time_point m_tmCheckPointBegin;
 	std::chrono::high_resolution_clock::time_point m_tmCheckPointEnd;
 public :
 LogHelper(ELoggerLevels eLevel = Common::eInfo, Common::ComString sModuleName = _ComStr("UnkmownModule"))
-	:m_eLevel(eLevel),m_sModuleName(sModuleName),m_bForseConsole(false){}
+	:m_eLevel(eLevel),m_sModuleName(sModuleName)/*,m_bForseConsole(false)*/{}
 LogHelper(Common::ComString sModuleName)
-	:m_eLevel(Common::eInfo),m_sModuleName(sModuleName),m_bForseConsole(false){}
+	:m_eLevel(Common::eInfo),m_sModuleName(sModuleName)/*,m_bForseConsole(false)*/{}
 
 LogHelper& operator() ()
 {

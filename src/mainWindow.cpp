@@ -1,5 +1,4 @@
 // mainWindow.cpp
-//#include <QtGui/QtGui>
 #include "mainWindow.h"
 #include "molecular.h"
 #include "mapping.h"
@@ -210,7 +209,5 @@ void MainWindow::help() {
 
 void MainWindow::about() {
   QMessageBox::about(this, "About Mutagen",
-    "v.0.1 Dec 2014"
-    "<p>Copyright(c) 2014 InterX, Inc."
-    "<p><a href=\"http://interxinc.com\">interxinc.com</a>");
+    "v.0.1 Dec 2014");
 }

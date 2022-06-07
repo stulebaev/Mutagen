@@ -567,7 +567,7 @@ namespace FileIO
 		_Molecule& getMolecule(std::shared_ptr<_Molecule> spMol) { return *spMol.get(); }
 		const _Molecule& getMolecule(const std::shared_ptr<_Molecule>& spMol) const { return *spMol.get(); }
 
-		void createMolecule(_Molecule& mol) {}
+		//void createMolecule(_Molecule& mol) {}
 		void createMolecule(std::shared_ptr<_Molecule>& spMol) { spMol = std::shared_ptr<_Molecule>(new _Molecule()); }
 
 		void getCopy(_Molecule& molDest, const _Molecule& molSrc) const { molDest = molSrc; }

@@ -645,7 +645,7 @@ namespace Common
 		{
 			const ComChar* szSeparators = _ComStr(" \t\r\n"); // Shouldn't we include comma ',' to this list?
 			const ComChar* szSpecSymbols = _ComStr(":;-()");
-			size_t i, nPos = 0, nLen = strItems.length();
+			size_t nPos = 0, nLen = strItems.length();
 			strSubItem.clear();
 			// Remove leading spaces and tabs
 			if ( (nPos = strItems.find_first_not_of(szSeparators)) != Common::ComString::npos )
@@ -653,7 +653,6 @@ namespace Common
 				strItems = strItems.substr(nPos, nLen - nPos);
 				nLen -= nPos;
 			}
-			i = 0;
 			for ( ; ; ) //Main cycle by occurrences of separators located outside of quoted ("..") blocks
 			{
 				if ( (nPos = find_first_of_OOQ(strItems, szSeparators)) == Common::ComString::npos ) // Neither space nor tab found

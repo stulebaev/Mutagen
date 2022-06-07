@@ -45,7 +45,7 @@ protected:
   void keyPressEvent(QKeyEvent* event);
 private:
   void drawScene();
-  void draw—oordinateAxes();
+  void drawCoordinateAxes();
   void drawVDW();
   void drawLines();
   AtomIndex pickAtom(const QPoint& pos);

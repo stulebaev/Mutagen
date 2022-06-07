@@ -181,7 +181,7 @@ namespace FileIO
 			}
 #endif //_DEBUG
 			Common::IndexType nID;
-			Common::BondIndexType iBond, nBonds;
+			Common::BondIndexType iBond;
 			//Remove bonds of atom to be deleted
 			_Atom& atom = m_vecAtoms[nAtomID];
 			for (iBond = atom.GetLinksNumber(); iBond; )
@@ -209,7 +209,7 @@ namespace FileIO
 			m_bContentsChanged = true;
 		}
 
-		bool AreBonded(Common::IndexType nAtomID1, Common::IndexType nAtomID2, Common::BondFlags& bondFlags = Common::BondFlags()) const
+		bool AreBonded(Common::IndexType nAtomID1, Common::IndexType nAtomID2, Common::BondFlags bondFlags = Common::BondFlags()) const
 		{
 #ifdef _DEBUG
 			Common::IndexType nAtomsNumber = GetAtomsNumber();
