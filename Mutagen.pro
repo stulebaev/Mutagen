@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = Mutagen
 
-QT += opengl xml
+QT += opengl
 CONFIG += release
 
 DESTDIR = ./
@@ -36,4 +36,7 @@ RESOURCES = \
 
 win32 {
   LIBS += opengl32.lib
+}
+macx {
+  message("We are on MacOS")
 }
