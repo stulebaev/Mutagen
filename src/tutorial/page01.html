@@ -1,0 +1,177 @@
+<html>
+<head>
+	<title>Parallel Simulation</title>
+	<link rel="stylesheet" type="text/css" href="class.css">
+</head>
+
+<body>
+
+<div class="my_style">
+
+<h2 class="my_h">Parallel Simulation</h2>
+
+<p class="my_ind0">
+	Here we describe the procedure of
+	<cite class="my_val">Local Parallel</cite> computation.
+	To organize <cite class="my_val">Remote Parallel</cite> computation see
+	<a class="my_menu" href="Remote Simulation.html">Remote Simulation</a>
+	for details.
+</p>
+
+<ol class="my_ind">
+	<li> <a class="my_notn" href="#L0_1">General Local Parallel computational scheme</a>
+	</li>
+	<li> <a class="my_notn" href="#L0_2">Supported MPI packages</a>
+	</li>
+	<li> <a class="my_notn" href="#L0_3">Setting up MPI packages</a>
+	</li>
+	<li> <a class="my_notn" href="#L0_4">Setting up DI for Simulation on Cluster</a>
+	</li>
+	<li> <a class="my_notn" href="#L5">Troubleshooting</a>
+	</li>
+</ol>
+
+<a name="L0_1">
+<h3 class="my_h">General Local Parallel computational scheme</h3>
+
+
+<ul class="my_ind">
+	<li>User launches <b>DI GUI</b> on one of the nodes -
+		<cite class="my_menu">Master Host</cite> (HASP Key should be plugged in it)
+	</li>
+	<li>Using <b>DI GUI</b> user starts MPI executable on
+		<cite class="my_menu">Master Host</cite>.
+	</li>
+	<li>MPI executable starts a set of <b>DI's computational modules</b>
+		on all selected cluster nodes.
+	</li>
+	<li>Using <b>DI GUI</b> user controls computational progress
+		and save results after computation is completed.
+	</li>
+</ul>
+
+</a>
+
+<a name="L0_2">
+<h3 class="my_h">Supported MPI packages</h3>
+
+<p class="my_ind0">
+	Currently DI supports 3 MPI packages:
+</p>
+
+<ol class="my_ind">
+	<li><b>DeinoMPI</b> (starting from version 1.1.0) for Windows.
+	</li>
+	<li><b>MPICH2</b> (starting from version 1.0.6) for Windows.
+	</li>
+	<li><b>LAM/MPI</b> (starting from version 7.1.4) for Linux and MacOS.</a>
+	</li>
+</ol>
+
+<p class="my_ind0">
+	<b>MPICH1</b> for Linux and Windows is no longer supported in two reasons:
+	1. <b>MPICH1</b> does not support necessary part of MPI-2 standard.
+	2. <b>MPICH1</b> is not supported by its manufacturers.
+</p>
+</a>
+
+<a name="L0_3">
+<h3 class="my_h">Setting up MPI packages</h3>
+
+<p class="my_ind0">
+	For short description on how to setup MPI cluster see:
+</p>
+
+<ol class="my_ind">
+	<li> <a class="my_notn" href="Parallel Windows.html#L1_0">
+		Setting up DeinoMPI on Windows Cluster</a>
+	</li>
+	<li> <a class="my_notn" href="Parallel Windows.html#L1_1">
+		Setting up MPICH2 on Windows Cluster</a>
+	</li>
+	<li> <a class="my_notn" href="Parallel Linux.html#L1_2">
+		Setting up LAM/MPI on Linux/MacOS Cluster</a>
+	</li>
+</ol>
+
+<p class="my_ind0">
+	For detailed description read "User Guide" or/and "Installation Notes"
+	of correspondent MPI package.
+</p>
+
+<a name="L0_4">
+<h3 class="my_h">Setting up DI for Simulation on Cluster</h3>
+
+<p class="my_ind0">
+	For how to setup <b>DI</b> for parralel computation see the following sections:
+</p>
+
+<ol class="my_ind">
+	<li> <a class="my_notn" href="Parallel Windows.html#L1_2">Simulation on Windows Cluster</a>
+	</li>
+	<li> <a class="my_notn" href="Parallel Linux.html#L2_2">Simulation on Linux/MacOS Cluster</a>
+	</li>
+</ol>
+
+</a>
+
+<a name="L5">
+<h3 class="my_h">Troubleshooting</h3>
+
+<p class="my_ind0">
+	In some cases computation can be aborted. It can occure just after start.
+	The most probable reasons of failure are:
+</p>
+<ol class="my_ind">
+	<li> Some settings are not specified correctly in
+		<b>DI's</b> <cite class="my_menu">Configuration Dialog</cite>.
+	</li>
+	<li> There is some <b>Antivirus software</b> installed on one of cluster nodes
+		that blocks network activity.
+	</li>
+	<li> There is some <b>Firewall software</b> installed on one of cluster nodes
+		that blocks network activity.
+	</li>
+	<li> <b>MPICH2</b> or <b>LAM/MPI</b> software is not installed correctly on
+		local cluster.
+	</li>
+	<li> Network connection between 2 or more cluster nodes was lost
+		for some period of time during computation.
+	</li>
+</ol>
+
+<p class="my_ind0">
+	Here are advices how to avoid mentioned above troubles:
+</p>
+<ol class="my_ind">
+	<li> Check and correct settings in
+		<b>DI's</b> <cite class="my_menu">Configuration Dialog</cite>.
+		This usualy settle 95% of all problems.
+	</li>
+	<li> Uninstall or disable <b>Antivirus software</b> at all.
+	</li>
+	<li> Disable or tune <b>Firewall software</b> to allow network activity
+		for <b>DI's</b> executables in <cite class="my_link">bin</cite> directory
+		and <b>MPI</b> executables (usually this are
+		<cite class="my_link">mpiexec</cite>, <cite class="my_link">smpd</cite>
+		in <cite class="my_link">bin</cite> directory of <b>MPI</b> installation
+		directory).
+	</li>
+	<li> Check step by step is <b>MPI</b> installed correctly using sections
+		<a class="my_notn" href="Parallel Windows.html#L1_0">Setting up DeinoMPI on Windows Cluster</a>,
+		<a class="my_notn" href="Parallel Windows.html#L1_1">Setting up MPICH2 on Windows Cluster</a>,
+		<a class="my_notn" href="Parallel Linux.html#L2_1">Setting up LAM/MPI on Linux/MacOS Cluster</a>.
+	</li>
+	<li> <b>MPI</b> do not support network disconnections between cluster nodes
+		during computation. That is why network connection must be provided continuously.
+	</li>
+</ol>
+</a>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div>
+
+</body>
+</html>

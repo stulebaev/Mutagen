@@ -1,0 +1,230 @@
+<html>
+<head>
+	<title>Parallel Simulation on Windows Cluster</title>
+	<link rel="stylesheet" type="text/css" href="class.css">
+</head>
+
+<body>
+
+<div class="my_style">
+
+<h2 class="my_h">Parallel Simulation on Windows Cluster</h2>
+
+<p class="my_ind0">
+	Here we describe the procedure of setting up MPI package on Windows Cluster.
+</p>
+
+<ol class="my_ind">
+	<li> <a class="my_notn" href="#L1_0">
+		Setting up DeinoMPI on Windows Cluster</a>
+	</li>
+	<li> <a class="my_notn" href="#L1_1">
+		Setting up MPICH2 on Windows Cluster</a>
+	</li>
+	<li> <a class="my_notn" href="#L1_2">
+		Simulation on Windows Cluster</a>
+	</li>
+</ol>
+
+<p class="my_ind0">
+	Let's organize Windows Cluster using local network with Windows machines.<br>
+	Assume we have a set of Windows computers with IP's
+	<cite class="my_val">172.16.0.1</cite>,
+	<cite class="my_val">172.16.0.2</cite>,
+	<cite class="my_val">172.16.0.3</cite>,...
+	connected to local network.
+</p>
+
+<a name="L1_0">
+<h3 class="my_h">Setting up DeinoMPI on Windows Cluster</h3>
+
+<ol class="my_ind">
+	<li> Create the same Windows user on all nodes you want to use in cluster.
+		It must have the same UserName and Password on all nodes.
+	</li>
+	<li> Download <b>DeinoMPI</b> distribution package from
+		<cite class="my_link">http://mpi.deino.net/download.htm</cite>.
+		Be careful when choosing <b>DeinoMPI.x.x.x.msi</b> (it's for x86 arch) or
+		<b>DeinoMPI.x64.x.x.x.msi</b> (it's for amd64 and em64t arch).
+	<li> Install <b>DeinoMPI</b> on all nodes you want to use in cluster.
+		If domains are used in local network then all nodes should
+		be in the same Domain.
+	</li>
+	<li> Register <b>DeinoMPI</b> user on all nodes you want to use in cluster.
+		It must be the same Windows user you created on all Windows nodes.
+		For this purpose:<br>
+		<ul class="my_ind">
+			<li> Run GUI <b>DeinoMPI.exe</b>
+			</li>
+			<li> Select <cite class="my_menu">Credential Store</cite> tab.
+			</li>
+			<li> Press <cite class="my_menu">enable create store options</cite> checkbox.
+			</li>
+			<li> Press <cite class="my_menu">create credential store</cite>
+			</li>
+			<li> In <cite class="my_menu">Add credential</cite> frame fill
+				<cite class="my_menu">Account</cite> and
+				and <cite class="my_menu">Password</cite> text fields.
+				For example <cite class="my_val">DomainName\clusterUser</cite>
+				<cite class="my_val">clusterPassword</cite>. If node is part of
+				domain then <cite class="my_val">DomainName</cite> is obligatory
+				part of Account name.
+			</li>
+			<li> Press <cite class="my_menu">Add button</cite>.
+			</li>
+		</ul>
+	</li>
+	<li> Do the same on each node (previous steps). Use the same user account.
+	</li>
+	<li> After installation <b>DeinoPM.exe</b> daemon must be visible
+		in the process list on each node.
+	</li>
+</ol>
+</a>
+
+<a name="L1_1">
+<h3 class="my_h">Setting up MPICH2 on Windows Cluster</h3>
+
+<ol class="my_ind">
+	<li> Create the same Windows user on all nodes you want to use in cluster.
+		It must have the same UserName and Password on all nodes.
+	</li>
+	<li> Download <b>MPICH2</b> distribution package from
+		<cite class="my_link">http://www.mcs.anl.gov/research/projects/mpich2</cite>.
+		Be careful when choosing <b>mpich2-x.x.x-win32-ia32.msi</b> (for x86 arch) or
+		<b>mpich2-x.x.x-win64-x86-64.msi</b> (for amd64 and em64t arch).
+	<li> Install <b>MPICH2</b> on all nodes you want to use in cluster.
+		If domains are used in local network then all nodes should
+		be in the same Domain.
+	</li>
+	<li> Register <b>MPICH2</b> user on all nodes you want to use in cluster.
+		It must be the same Windows user you created on all Windows nodes.
+		For this purpose:<br>
+		<ul class="my_ind">
+			<li> Run GUI <b>wmpiregister.exe</b>
+			</li>
+			<li> Fill
+				<cite class="my_menu">Account</cite> and
+				<cite class="my_menu">Password</cite> text fields.
+				For example <cite class="my_val">DomainName\clusterUser</cite>
+				and <cite class="my_val">clusterPassword</cite>. If node is part of
+				domain then <cite class="my_val">DomainName</cite> is obligatory
+				part of Account name.
+			</li>
+			<li> Press <cite class="my_menu">Register button</cite>.
+			</li>
+		</ul>
+		If <b>wmpiregister.exe</b> is not present in your distribution:
+		<ul class="my_ind">
+			<li> Run Windows <b>Command Prompt</b>.
+			</li>
+			<li> Change dir to <cite class="my_link">bin</cite> directory of
+			     <b>MPICH2</b> installation path. For instance:
+				 <cite class="my_form">cd \d D:</cite>,
+				 <cite class="my_form">cd D:\Program\MPICH2\bin</cite>.
+			</li>
+			<li> Run command <cite class="my_form">mpiexec.exe -register</cite>.
+			</li>
+			<li> Then enter asked <cite class="my_menu">Account</cite> and
+				 <cite class="my_menu">Password</cite>, the same as you could do with
+				 <b>wmpiregister.exe</b>.
+			</li>
+		</ul>
+	</li>
+	<li> Do the same on each node (previous steps). Use the same user account.
+	</li>
+	<li> After installation <b>smpd.exe</b> daemon must be visible
+		in the process list on each node.
+	</li>
+</ol>
+</a>
+
+<a name="L1_2">
+<h3 class="my_h">Simulation on Windows Cluster</h3>
+
+<ol class="my_ind">
+	<li> Install <b>DI</b> on one of Windows nodes. This node is called
+		<cite class="my_menu">Master Host</cite>.
+	</li>
+	<li> Make <cite class="my_link">bin</cite> directory of
+		<b>DI</b> package root directory Windows-shared on on
+		<cite class="my_menu">Master Host</cite>.
+		Its Windows shared name should have the same name - <cite class="my_link">bin</cite>.
+		It must have at least read permissions from all nodes
+		of cluster for user <cite class="my_val">DomainName\clusterUser</cite>.
+		In some cases it necessary to give write permissions.
+		Let consider assigning permissions in details:
+	</li>
+		<ul class="my_ind">
+			<li>Read permissions on <cite class="my_link">bin</cite>
+				directory is enough if (and only if) <cite class="my_menu">Master Host</cite>
+				is at the first place of <cite class="my_menu">Hosts List</cite>.
+			</li>
+			<li>Write permissions on <cite class="my_link">bin</cite>
+				directory must be granted (in addition to read permissions)
+				if (and only if) <cite class="my_menu">Master Host</cite>
+				is not at the first place of <cite class="my_menu">Hosts List</cite>
+				(in this case it can be absent on list at all).
+			</li>
+			<li>After this <cite class="my_link">\\localhostName\bin</cite>
+				path must be readable from all cluster nodes and writable from the
+				first host (where localhostName - is name of host where <b>DI</b>
+				is running and its <cite class="my_link">bin</cite> directory is made
+				Windows-shared).
+			</li>
+		</ul>
+	<li> In
+		<cite class="my_menu">Main Menu -> View -> Configuration -> Base Tab</cite>:
+		<ul class="my_ind">
+			<li><cite class="my_menu">Parallel Computation</cite>
+				switch to <cite class="my_val">Parallel</cite>.
+			</li>
+		</ul>
+	</li>
+	<li> In
+		<cite class="my_menu">Main Menu -> View -> Configuration -> MPI Tab</cite> specify:
+		<ul class="my_ind">
+			<li><cite class="my_menu">Full Path to mpiexec Executable</cite>.
+				For instance <cite class="my_val">D:\Program\DeinoMPI\bin\mpiexec.exe</cite>
+				or <cite class="my_val">D:\Program\MPICH2\bin\mpiexec.exe</cite>.
+			</li>
+			<li><cite class="my_menu">MPI Package</cite>.
+				For instance <cite class="my_val">DeinoMPI</cite>
+				or <cite class="my_val">MPICH2</cite>.
+			</li>
+			<li><cite class="my_menu">Master Host</cite>.
+				For instance <cite class="my_val">172.16.0.1</cite>.
+			</li>
+			<li><cite class="my_menu">Remote Launch</cite>
+				<cite class="my_val">rsh/ssh</cite> and
+				<cite class="my_menu">Start New Daemon</cite>
+				have no effect for Windows cluster configuration.
+			</li>
+			<li><cite class="my_menu">Hosts</cite>. List of nodes to use in computation -
+				node IP's (or Host Names) and number of processes to run on correspondent node.
+				Note:
+				<br>
+				Not all of cluster nodes must present in the list,
+				only you whant to use in particular computation.
+				<br>
+				It is not recommended to set <cite class="my_menu">Processes number</cite>
+				exceeding the number of processor's cores on correspondent node.
+			</li>
+		</ul>
+	</li>
+	<li> To run computation follow usual steps:
+		<cite class="my_menu">Main Menu -> Simulation -> Run -> Start Button</cite>.
+	</li>
+	<li> Note that users running <b>DI</b> on cluster at the same time
+		must have different accounts.
+	</li>
+</ol>
+</a>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div>
+
+</body>
+</html>

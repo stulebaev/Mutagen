@@ -1,0 +1,8 @@
+<!-- tutorial.qrc -->
+<RCC>
+<qresource>
+  <file>tutorial/page01.html</file>
+  <file>tutorial/page02.html</file>
+  <file>tutorial/page03.html</file>
+</qresource>
+</RCC>

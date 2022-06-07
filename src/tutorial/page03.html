@@ -1,0 +1,204 @@
+<html>
+<head>
+	<title>Parallel Simulation on Linux/MacOS Cluster</title>
+	<link rel="stylesheet" type="text/css" href="class.css">
+</head>
+
+<body>
+
+<div class="my_style">
+
+<h2 class="my_h">Parallel Simulation on Linux/MacOS Cluster</h2>
+
+<p class="my_ind0">
+	Here we describe the procedure of setting up MPI package on Linux or MacOS Cluster.
+</p>
+
+<ol class="my_ind">
+	<li> <a class="my_notn" href="#L2_1">
+		Setting up LAM/MPI on Linux/MacOS Cluster</a>
+	</li>
+	<li> <a class="my_notn" href="#L2_2">
+		Simulation on Linux/MacOS Cluster</a>
+	</li>
+</ol>
+
+<p class="my_ind0">
+	Let's organize Linux/MacOS Cluster using local network
+	with Linux/MacOS machines.<br>
+	Assume we have Linux-cluster with IP's in the internal cluster's network:
+	<cite class="my_val">10.0.0.1</cite>,
+	<cite class="my_val">10.0.0.2</cite>,
+	<cite class="my_val">10.0.0.3</cite>,...
+</p>
+
+<a name="L2_1">
+<h3 class="my_h">Setting up LAM/MPI on Linux/MacOS Cluster</h3>
+
+<ol class="my_ind">
+	<li> Create the same Linux/MacOS user on all nodes you want to use in cluster.
+		It must have the same UserName and Password on all nodes.
+	</li>
+	<li> Download <b>LAM/MPI</b> distribution package from
+		<cite class="my_link">http://www.lam-mpi.org</cite>.
+		Sources <b>lam-x.x.x.tar.gz</b> package is crossplatform.
+	<li> Install <b>LAM/MPI</b> on all nodes you want to use in Cluster.
+		To enable <b>LAM/MPI</b> work together with <b>DI</b>
+		install from sources specifying:<br>
+		<cite class="my_form">tar -zxvf lam-x.x.x.tar.gz</cite><br>
+		<cite class="my_form">cd lam-x.x.x</cite><br>
+		<cite class="my_form">./configure --prefix /usr/local/mpilam-7.1.4</cite><br>
+		<cite class="my_form">make</cite><br>
+		<cite class="my_form">make install</cite>
+	</li>
+	<li> Install <b>LAM/MPI</b> on all nodes. Use the same installation path.
+		As alternative install <b>LAM/MPI</b> to NFS-shared directory.
+	</li>
+	<li> Provide <b>rsh</b> and/or <b>ssh</b>
+		passwordless authentication between two any Cluster nodes.
+		This means that you have <b>rsh</b> and/or <b>ssh</b> access
+		from one node to any other node without password (or any other) prompt.
+	</li>
+	<li> Provide NFS-shared directory for created Linux/MacOS user. For instance
+		make <cite class="my_link">/home/clusterUser/share</cite> NFS-shared.
+		This path should be available on each node.
+	</li>
+	<li> If you want to use the only one <b>lamd</b> daemon for all parallel jobs
+		then perform the following steps:
+		<ul class="my_ind">
+			<li>
+				Create text file <cite class="my_form">mpi-hosts.txt</cite>
+				with list of nodes and number of cpu's on each node in format:<br>
+				<cite class="my_val">10.0.0.1 cpu=2</cite><br>
+				<cite class="my_val">10.0.0.2 cpu=2</cite><br>
+				<cite class="my_val">10.0.0.3 cpu=2</cite>
+			</li>
+			<li> Launch <b>lamd</b> daemon with command:<br>
+				<cite class="my_form">
+				/usr/local/mpilam-7.1.4/bin/lamboot -ssi boot rsh -ssi boot_rsh_agent ssh mpi-hosts.txt
+				</cite>
+			</li>
+			<li> <b>lamd</b> must appear in the list of processes.
+			</li>
+			<li> Note that <b>lamd</b> must be started on the node that specified
+			on the first place in <b>DI's</b>
+			<cite class="my_menu">Main Menu -> View -> Configuration -> MPI Tab -> Hosts List</cite>.
+			</li>
+		</ul>
+	</li>
+	<li> Alternative way is to use separate <b>lamd</b> daemon for every jobs.
+		It is recommended way because <b>DI</b> handles all the
+		complexity (described in previous point).
+	</li>
+</ol>
+</a>
+
+<a name="L2_2">
+<h3 class="my_h">Simulation on Linux/MacOS Cluster</h3>
+
+<ol class="my_ind">
+	<li> Install <b>DI</b> on one of Linux/MacOS nodes under
+		recently created user <cite class="my_val">clusterUser</cite>.
+		Installation node is called <cite class="my_menu">Master Host</cite>.
+	</li>
+	<li> Installation directory (or it's parent directory) should be NFS-shared.
+		Each node of Cluster should have the same NFS-shared directory with the
+		same path, for instance <cite class="my_link">/home/clusterUser/share</cite>.
+		In this case <b>DI</b> can be installed to
+		<cite class="my_link">/home/clusterUser/share/DI</cite>.
+	</li>
+	<li> NFS-shared directory must have at least read permissions from all nodes
+		of cluster for user <cite class="my_val">clusterUser</cite>.
+		Write permissions mast be granted for <cite class="my_menu">Master Host</cite>
+		and first node of
+		<cite class="my_menu">Configuration Dialog -> MPI Tab -> Hosts List</cite>.
+		Let consider assigning permissions in details:
+	</li>
+		<ul class="my_ind">
+			<li>Read permissions on <cite class="my_link">/home/clusterUser/share</cite>
+				directory is enough if (and only if) <cite class="my_menu">Master Host</cite>
+				is at the first place of <cite class="my_menu">Hosts List</cite>.
+			</li>
+			<li>Write permissions on <cite class="my_link">/home/clusterUser/share</cite>
+				directory must be granted (in addition to read permissions)
+				if (and only if) <cite class="my_menu">Master Host</cite>
+				is not at the first place of <cite class="my_menu">Hosts List</cite>
+				(in this case it can be absent on list at all).
+			</li>
+			<li>After this <cite class="my_link">/home/clusterUser/share</cite>
+				path must be readable from all cluster nodes and writable from the
+				first host.
+			</li>
+		</ul>
+	<li> In
+		<cite class="my_menu">Main Menu -> View -> Configuration -> Base Tab</cite>:
+		<ul class="my_ind">
+			<li><cite class="my_menu">Parallel Computation</cite>
+				switch to <cite class="my_val">Parallel</cite>.
+			</li>
+		</ul>
+	</li>
+	<li> In
+		<cite class="my_menu">Main Menu -> View -> Configuration -> MPI Tab</cite> specify:
+		<ul class="my_ind">
+			<li><cite class="my_menu">Full Path to mpirun Executable</cite>.
+				For instance <cite class="my_val">/usr/local/mpilam-7.1.4/bin/mpirun</cite>.
+			</li>
+			<li><cite class="my_menu">MPI Package</cite>.
+				For instance <cite class="my_val">LAM/MPI</cite>.
+			</li>
+			<li><cite class="my_menu">Master Host</cite>.
+				For instance <cite class="my_val">10.0.0.1</cite>.
+			</li>
+			<li> <cite class="my_menu">Remote Launch</cite>
+				<cite class="my_val">ssh</cite> - if ssh service provides
+				passwordless authentication between two any Cluster nodes.
+				<cite class="my_val">rsh</cite> - if rsh do it.
+			</li>
+			<li><cite class="my_menu">Start New Daemon</cite>
+				<cite class="my_val">On</cite> (recommended)
+				if you want to start separate <b>lamd</b> daemon for the job.
+				<cite class="my_val">Off</cite>
+				if you want to use existing <b>lamd</b> daemon currently running on
+				<cite class="my_menu">Master Host</cite>.
+				The last choice need more careful consideration:
+				<ul class="my_ind">
+					<li>
+						<cite class="my_form">lamboot</cite> must be launched manualy on
+						the first node of <cite class="my_menu">Hosts List</cite> before
+						using of cluster.
+					</li>
+					<li>
+						The list of nodes passed to <cite class="my_form">lamboot</cite>
+						should be the same as <cite class="my_menu">Hosts List</cite>.
+					</li>
+					<li>
+						Number of correspondent and cpu's in two lists can differ
+						(can be 0 to exclude node from computation).
+					</li>
+				</ul>
+			</li>
+			<li><cite class="my_menu">Hosts</cite>. List of nodes to use in computation -
+				node IP's (or Host Names) and number of processes to run on correspondent node.
+		
+				<br>
+				Note:
+				<br>
+				It is not recommended to set <cite class="my_menu">Processes number</cite>
+				exceeding the number of processor's cores on correspondent node.
+			</li>
+		</ul>
+	</li>
+	<li> To run computation follow usual steps:
+		<cite class="my_menu">Main Menu -> Simulation -> Run -> Start Button</cite>.
+	</li>
+</ol>
+</a>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</div>
+
+</body>
+</html>
